@@ -1,0 +1,20 @@
+
+### Copyright 2020 Openbase, Inc.
+### Flag to create or delete all the objects  Accepts: 'present' to create; 'absent' to delete
+state: present
+
+transport_zones: 
+   - display_name: transport-overlay
+     description: NSX Configured Overlay Transport Zone
+     transport_type: OVERLAY
+     host_switch_name: nvds-overlay
+
+   - display_name: transport-uplink1
+     description: NSX Configured Uplink VLANTransport Zone
+     transport_type: VLAN
+     host_switch_name: nvds-uplink1
+      
+   - display_name: transport-uplink2
+     description: NSX Configured Uplink VLAN Transport Zone
+     transport_type: VLAN
+     host_switch_name: nvds-uplink2

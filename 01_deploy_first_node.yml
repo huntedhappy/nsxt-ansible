@@ -1,0 +1,49 @@
+# Copyright 2020 Openbase, Inc.
+---
+# status
+#
+- hosts: 127.0.0.1
+  connection: local
+  become: yes
+  vars_files:
+    - vars_files/nsxt_info_vars.yml
+    - vars_files/vcenter_info_vars.yml
+
+  tasks:
+    - name: deploy NSX Manager OVA
+      nsxt_deploy_ova:
+        ovftool_path: "/usr/bin"
+        datacenter: "{{ nsx_node['datacenter'] }}"
+        cluster: "{{ nsx_node['cluster'] }}"
+        datastore: "{{ nsx_node['datastore'] }}"
+        portgroup: "{{ nsx_node['portgroup'] }}"
+        vmname: "{{ nsx_node['vmname'] }}"
+        hostname: "{{ nsx_node['hostname'] }}"
+        dns_server: "{{ nsx_node['dns_server'] }}"
+        dns_domain: "{{ nsx_node['domain'] }}"
+        ntp_server: "{{ nsx_node['ntp_server'] }}"
+        gateway: "{{ nsx_node['gateway'] }}"
+        ip_address: "{{ nsx_node['mgmt_ip'] }}"
+        netmask: "{{ nsx_node['netmask'] }}"
+        admin_password: "{{ nsx_node['nsx_password'] }}"
+        cli_password: "{{ nsx_node['nsx_password'] }}"
+        path_to_ova: "{{ ova['nsx_ova_path'] }}"
+        ova_file: "{{ ova['nsx_ova'] }}"
+        vcenter: "{{ item.mgmt_ip }}"
+        vcenter_user: "{{ item.username }}"
+        vcenter_passwd: "{{ item.password }}"
+        deployment_size: "{{nsx_node['deployment_size']}}"
+
+# Note: In case of deploying NSX 2.5, the role should be "NSX Manager". The below is valid for NSX 2.4 release
+        role: "NSX Manager"
+
+      with_items:
+        - "{{ compute_managers1 }}"
+
+    - name: Check manager status
+      nsxt_manager_status:
+          hostname: "{{ nsx_node['hostname'] }}"
+          username: "{{ nsx_node['nsx_username'] }}"
+          password: "{{ nsx_node['nsx_password'] }}"
+          validate_certs: "{{ nsx_node['validate_certs'] }}"
+          wait_time: 50

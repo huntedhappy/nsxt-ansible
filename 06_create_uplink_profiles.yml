@@ -1,0 +1,40 @@
+# Copyright 2020 Openbase, Inc.
+---
+- hosts: 127.0.0.1
+  connection: local
+  become: yes
+  vars_files:
+    - vars_files/create_uplink_profiles_vars.yml
+    - vars_files/create_lags_profiles_vars.yml
+    - vars_files/nsxt_info_vars.yml
+  tasks:
+    - name: Create a Edge-VM VTEP Profile
+      nsxt_uplink_profiles:
+        hostname: "{{ nsx_node['hostname'] }}"
+        username: "{{ nsx_node['nsx_username'] }}"
+        password: "{{ nsx_node['nsx_password'] }}"
+        validate_certs: "{{ nsx_node['validate_certs'] }}"
+        resource_type: UplinkHostSwitchProfile
+        display_name: "{{ item.display_name }}"
+        teaming: "{{item.teaming}}" 
+        transport_vlan: "{{item.transport_vlan}}"
+        mtu: "{{item.mtu}}"
+        state: "{{ state }}"
+      with_items:
+        - "{{ uplink_profiles }}"
+
+    - name: Create a Edge-VM VTEP LAGS Profile
+      nsxt_uplink_profiles:
+        hostname: "{{ nsx_node['hostname'] }}"
+        username: "{{ nsx_node['nsx_username'] }}"
+        password: "{{ nsx_node['nsx_password'] }}"
+        validate_certs: "{{ nsx_node['validate_certs'] }}"
+        resource_type: UplinkHostSwitchProfile
+        display_name: "{{ item.display_name }}"
+        mtu: "{{ item.mtu }}"#
+        lags: "{{ item.lags }}"
+        teaming: "{{item.teaming[0]}}"
+        transport_vlan: "{{ item.transport_vlan }}"
+        state: "{{ state }}"
+      with_items:
+        - "{{ uplink_lags_profiles }}"

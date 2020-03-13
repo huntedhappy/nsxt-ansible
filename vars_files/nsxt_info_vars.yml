@@ -1,0 +1,58 @@
+#### Copyright 2020 Openbase, Inc.
+state: present
+
+
+ova:
+  nsx_ova_path: /var/tmp/nsx_ova/01. VMWARE/08. OS이미지/NSX-T/2.5
+  nsx_ova: nsx-unified-appliance-2.5.0.0.0.14663978.ova
+
+
+nsx_node:
+  hostname: nsxt-01.oblab.local
+  mgmt_ip: 10.253.253.201
+  vmname: nsxt-01
+  datacenter: OB.DC
+  cluster: COMPUTE.C
+  datastore: vsanDatastore
+  portgroup: VM Network
+  deployment_size: small
+  nsx_username: admin
+  nsx_password: Openbase!234
+  validate_certs: false
+  domain: oblab.local
+  netmask: 255.255.255.0
+  gateway: 10.253.253.1
+  dns_server: 192.168.15.198
+  ntp_server: 192.168.15.198
+
+
+#### Additional nodes defined as an array so that its easier to iterate through them in the playbook.
+#### NOTE: The Datacenter/Cluster/Datastore/Network requires the vCenter MOID (Module Object ID) and not the name
+node:
+ - hostname: nsxt-02.oblab.local
+   mgmt_ip: 10.253.253.202
+   prefix: '24'
+   datacenter_moid: datacenter-2
+   cluster_moid: domain-c7
+   datastore_moid: datastore-322
+   portgroup_moid: network-30
+   deployment_size: SMALL
+
+ - hostname: nsxt-03.oblab.local
+   mgmt_ip: 10.253.253.203
+   prefix: '24'
+   datacenter_moid: datacenter-2
+   cluster_moid: domain-c7
+   datastore_moid: datastore-322
+   portgroup_moid: network-30
+   deployment_size: SMALL
+
+VTEP:
+  display_name: VTEP
+  subnets: 
+   - gateway_ip: 10.253.250.1
+     cidr: 10.253.250.0/24
+     allocation_ranges:
+     - start: 10.253.250.211
+       end: 10.253.250.220
+

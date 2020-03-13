@@ -1,0 +1,46 @@
+
+### Copyright 2020 Openbase, Inc.
+### Flag to create or delete all the objects  Accepts: 'present' to create; 'absent' to delete
+{
+state: present,
+
+### Policy [FAILOVER_ORDER, LOADBALANCE_SRCID, LOADBALANCE_SRC_MAC]
+#### ESXI Edge LAG Uplink profile
+  "uplink_lags_profiles": [
+     {
+      "display_name": "nsx-lags-profile-1",
+      "lags": [
+        {
+          "name": "lag",
+          "mode": "ACTIVE",
+          "load_balance_algorithm": "SRCDESTMACIPPORT",
+          "number_of_uplinks": 2,
+          "uplinks": [
+            {
+              "uplink_name": "lag-0",
+              "uplink_type": "PNIC"
+            },
+            {
+              "uplink_name": "lag-1",
+              "uplink_type": "PNIC"
+            }
+          ],
+          "timeout_type": "SLOW"
+        }
+      ],
+      "teaming": [
+      {
+        "policy": "LOADBALANCE_SRCID",
+        "active_list": [
+          {
+            "uplink_name": "lag",
+            "uplink_type": "LAG"
+          }
+        ]
+      }
+    ],
+      "transport_vlan": "0",
+      "mtu": "9000"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+# Copyright 2020 Openbase, Inc.
+---
+- hosts: 127.0.0.1
+  connection: local
+  become: yes
+  vars_files:
+### you want to one pnic deploy_nsx_tn_vars1 , or two pnic deploy_nsx_tn_vars2, or ***lags pnic deploy_nsx_tn_vars3 not supported edge vm
+    - vars_files/deploy_nsx_tn_vars1.yml
+    - vars_files/nsxt_info_vars.yml
+    - vars_files/vcenter_info_vars.yml
+
+  tasks:
+    - name: Deploy Transport Edge-Nodes 
+      nsxt_transport_nodes:
+        hostname: "{{ nsx_node['hostname'] }}"
+        username: "{{ nsx_node['nsx_username'] }}"
+        password: "{{ nsx_node['nsx_password'] }}"
+        validate_certs: "{{ nsx_node['validate_certs'] }}"
+        display_name: "{{ item.display_name }}"
+        host_switch_spec:
+          resource_type: StandardHostSwitchSpec
+          host_switches: "{{ item.host_switches }}"
+        transport_zone_endpoints: "{{ item.transport_zone_endpoints }}"
+        node_deployment_info: "{{ item.node_deployment_info }}"
+        state: "{{ state }}"
+      with_items:
+        - "{{ transport_nodes }}"

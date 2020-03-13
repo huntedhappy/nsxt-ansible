@@ -1,0 +1,49 @@
+### Copyright 2020 Openbase, Inc.
+state: present
+
+#### you use to create if you want to One PNIC For ESXI Host
+transport_node_profiles1:
+  display_name: Compute-Profile-1
+  description: Compute Transport Node Profile
+  host_switches:
+  - host_switch_profiles:
+    - name: nsx-esxi-vtep-profile
+      type: UplinkHostSwitchProfile
+    - name: nsx-default-nioc-hostswitch-profile
+      type: NiocProfile
+    - name: LLDP [Send Packet Disabled]
+      type: LldpHostSwitchProfile
+    host_switch_name: nvds-overlay
+    pnics:
+    - device_name: vmnic3
+      uplink_name: uplink-1          
+    ip_assignment_spec:
+      resource_type: StaticIpPoolSpec
+      ip_pool_name: VTEP
+  transport_zone_endpoints:
+  - transport_zone_name: transport-overlay
+      
+#### you use to create transport_zone if tou want to Two PNIC For ESXI Host
+
+transport_node_profiles2:
+  display_name: Compute-Profile-2
+  description: Compute Transport Node Profile
+  host_switches:
+  - host_switch_profiles:
+    - name: nsx-esxi-vtep-profile
+      type: UplinkHostSwitchProfile
+    - name: nsx-default-nioc-hostswitch-profile
+      type: NiocProfile
+    - name: LLDP [Send Packet Disabled]
+      type: LldpHostSwitchProfile
+    host_switch_name: nvds-overlay
+    pnics:
+    - device_name: vmnic3
+      uplink_name: uplink-1
+    - device_name: vmnic4
+      uplink_name: uplink-2
+    ip_assignment_spec:
+      resource_type: StaticIpPoolSpec
+      ip_pool_name: VTEP
+  transport_zone_endpoints:
+  - transport_zone_name: transport-overlay

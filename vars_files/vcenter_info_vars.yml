@@ -1,0 +1,72 @@
+# Copyright 2020 Openbase, Inc.
+
+state: present
+
+compute_managers1:
+  origin_type: vCenter
+  display_name: vcenter1 
+  compute_manager_name: vcenter1
+  server: 10.253.253.10
+  mgmt_ip: 10.253.253.10
+  cluster_name: COMPUTE.C
+  transport_node_profile_name: Compute-Profile-1
+  credential_type: UsernamePasswordLoginCredential 
+  username: administrator@vsphere.local
+  password: Openbase!234
+
+compute_managers2:
+  origin_type: vCenter
+  display_name: vcenter2
+  compute_manager_name: vcenter2
+  server: 10.253.253.11
+  mgmt_ip: 10.253.253.11
+  cluster_name: COMPUTE.C
+  transport_node_profile_name: Compute-Profile-1
+  credential_type: UsernamePasswordLoginCredential
+  username: administrator@vsphere.local
+  password: Openbase!234
+
+#
+# edge1 deployment config
+#
+
+edge1_deployment_config:
+  form_factor: SMALL
+  vm_deployment_config:
+    vc_name: vcenter2
+    compute_id: domain-c7
+    storage_id: datastore-220
+    host_id: host-162
+    management_port_subnets: [{ip_addresses: [10.253.253.206], prefix_length: 24}]
+    hostname: edge1.oblab.local
+    management_network_id: network-22
+    data_network_ids: [dvportgroup-26, dvportgroup-25, dvportgroup-25]
+    default_gateway_addresses: [10.253.253.1]
+    allow_ssh_root_login: true
+    enable_ssh: true
+    placement_type: VsphereDeploymentConfig
+  node_user_settings: {cli_username: admin, root_password: Openbase!234, cli_password: Openbase!234,
+    audit_username: audit, audit_password: Openbase!234}
+
+#
+# edge2 deployment config
+#
+
+edge2_deployment_config:
+  form_factor: SMALL
+  vm_deployment_config:
+    vc_name: vcenter2
+    compute_id: domain-c7
+    storage_id: datastore-220
+    host_id: host-156
+    management_port_subnets: [{ip_addresses: [10.253.253.207], prefix_length: 24}]
+    hostname: edge2.oblab.local
+    management_network_id: network-22
+    data_network_ids: [dvportgroup-26, dvportgroup-25, dvportgroup-25]
+    default_gateway_addresses: [10.253.253.1]
+    allow_ssh_root_login: true
+    enable_ssh: true
+    placement_type: VsphereDeploymentConfig
+  node_user_settings: {cli_username: admin, root_password: Openbase!234, cli_password: Openbase!234,
+    audit_username: audit, audit_password: Openbase!234}
+

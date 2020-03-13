@@ -1,0 +1,94 @@
+# Copyright 2020 Openbase, Inc.
+state: present
+
+#
+# TRANSPORT NODES
+#
+transport_nodes:
+# Edge01
+- display_name: edge01
+  description: NSX Edge Node 01
+  host_switches:
+  - host_switch_name: nvds-overlay
+    host_switch_profiles:
+    - {type: UplinkHostSwitchProfile, name: nsx-edge-vtep-profile}
+    - {type: LldpHostSwitchProfile, name: 'LLDP [Send Packet Disabled]'}
+    pnics:
+    - {device_name: fp-eth0, uplink_name: uplink-1}
+    ip_assignment_spec: {resource_type: StaticIpPoolSpec, ip_pool_name: VTEP}
+  - host_switch_name: nvds-uplink1
+    host_switch_profiles:
+    - {type: UplinkHostSwitchProfile, name: nsx-edge-single-uplink-profile-1}
+    - {type: LldpHostSwitchProfile, name: 'LLDP [Send Packet Disabled]'}
+    pnics:
+    - {device_name: fp-eth1, uplink_name: uplink-1}
+  transport_zone_endpoints:
+  - {transport_zone_name: transport-overlay}
+  - {transport_zone_name: transport-uplink1}
+  node_deployment_info:
+    deployment_type: VIRTUAL_MACHINE
+    resource_type: EdgeNode
+    display_name: edge01
+    deployment_config:    ## DO NOT EDIT HERE! will be filled from nsxt_vcenter_info.yml
+      form_factor: SMALL
+      vm_deployment_config:
+        vc_name: vcenter2
+        compute_id: domain-c7
+        storage_id: datastore-220
+        host_id: host-162
+        management_port_subnets: [{ip_addresses: [10.253.253.206], prefix_length: 24}]
+        hostname: edge1.oblab.local
+        management_network_id: network-22
+        data_network_ids: [dvportgroup-26, dvportgroup-25, dvportgroup-25]
+        default_gateway_addresses: [10.253.253.1]
+        allow_ssh_root_login: true
+        enable_ssh: true
+        placement_type: VsphereDeploymentConfig
+      node_user_settings: {cli_username: admin, root_password: Openbase!234, cli_password: Openbase!234,
+        audit_username: audit, audit_password: Openbase!234}
+- display_name: edge02
+  description: NSX Edge Node 02
+  host_switches:
+  - host_switch_name: nvds-overlay
+    host_switch_profiles:
+    - {type: UplinkHostSwitchProfile, name: nsx-edge-vtep-profile}
+    - {type: LldpHostSwitchProfile, name: 'LLDP [Send Packet Disabled]'}
+    pnics:
+    - {device_name: fp-eth0, uplink_name: uplink-1}
+    ip_assignment_spec: {resource_type: StaticIpPoolSpec, ip_pool_name: VTEP}
+  - host_switch_name: nvds-uplink1
+    host_switch_profiles:
+    - {type: UplinkHostSwitchProfile, name: nsx-edge-single-uplink-profile-1}
+    - {type: LldpHostSwitchProfile, name: 'LLDP [Send Packet Disabled]'}
+    pnics:
+    - {device_name: fp-eth1, uplink_name: uplink-1}
+  transport_zone_endpoints:
+  - {transport_zone_name: transport-overlay}
+  - {transport_zone_name: transport-uplink1}
+  node_deployment_info:
+    deployment_type: VIRTUAL_MACHINE
+    resource_type: EdgeNode
+    display_name: edge02
+    deployment_config:     ## DO NOT EDIT HERE! will be filled from nsxt_vcenter_info.yml
+      form_factor: SMALL
+      vm_deployment_config:
+        vc_name: vcenter2
+        compute_id: domain-c7
+        storage_id: datastore-220
+        host_id: host-156
+        management_port_subnets: [{ip_addresses: [10.253.253.207], prefix_length: 24}]
+        hostname: edge2.oblab.local
+        management_network_id: network-22
+        data_network_ids: [dvportgroup-26, dvportgroup-25, dvportgroup-25]
+        default_gateway_addresses: [10.253.253.1]
+        allow_ssh_root_login: true
+        enable_ssh: true
+        placement_type: VsphereDeploymentConfig
+      node_user_settings: {cli_username: admin, root_password: Openbase!234, cli_password: Openbase!234,
+        audit_username: audit, audit_password: Openbase!234}
+edge_clusters:
+  display_name: Edge-Cluster-01
+  cluster_profile_binding_id: 91bcaa06-47a1-11e4-8316-17ffc770799b
+  members:
+  - {transport_node_name: edge01}
+  - {transport_node_name: edge02}

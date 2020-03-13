@@ -1,0 +1,48 @@
+# Copyright 2020 Openbase, Inc.
+---
+#
+# Deploys remaining NSX appliance nodes and forms a cluster. Requires the first
+# NSX appliance node to be deployed and at least one Compute Manager registered.
+#
+- hosts: 127.0.0.1
+  connection: local
+  become: yes
+  vars_files:
+    - vars_files/nsxt_info_vars.yml
+    - vars_files/vcenter_info_vars.yml
+
+  tasks:
+    - name: Deploying additional nodes
+      nsxt_controller_manager_auto_deployment:
+          hostname: "{{ nsx_node['hostname'] }}"
+          username: "{{ nsx_node['nsx_username'] }}"
+          password: "{{ nsx_node['nsx_password'] }}"
+          validate_certs: "{{ nsx_node['validate_certs'] }}"
+          deployment_requests:
+          - roles:
+            - CONTROLLER
+            - MANAGER
+            form_factor: "{{ item.deployment_size }}"
+            user_settings:
+              cli_password: "{{ nsx_node['nsx_password'] }}"
+              root_password: "{{ nsx_node['nsx_password'] }}"
+            deployment_config:
+              placement_type: VsphereClusterNodeVMDeploymentConfig
+              vc_name: "{{ compute_managers1['display_name'] }}"              
+              management_network_id: "{{ item.portgroup_moid }}"
+              hostname: "{{ item.hostname }}"
+              compute_id: "{{ item.cluster_moid }}"
+              storage_id: "{{ item.datastore_moid }}"
+              default_gateway_addresses:
+              - "{{ nsx_node['gateway'] }}"
+              dns_servers:
+              - "{{ nsx_node['dns_server'] }}"
+              ntp_servers:
+              - "{{ nsx_node['ntp_server'] }}"
+              management_port_subnets:
+              - ip_addresses:
+                - "{{ item.mgmt_ip }}"
+                prefix_length: "{{ item.prefix }}"
+          state: "{{ state }}"
+      with_items:
+        - "{{ node }}"

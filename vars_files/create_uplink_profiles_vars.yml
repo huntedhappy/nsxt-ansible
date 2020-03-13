@@ -1,0 +1,88 @@
+### Copyright 2020 Openbase, Inc.
+### Flag to create or delete all the objects  Accepts: 'present' to create; 'absent' to delete
+state: present
+
+### Policy [FAILOVER_ORDER, LOADBALANCE_SRCID, LOADBALANCE_SRC_MAC]
+#### ESXI Edge One Uplink profile
+
+transport_zones:
+
+   - display_name: transport-overlay
+     description: NSX Configured Overlay Transport Zone
+     transport_type: OVERLAY
+     host_switch_name: nvds-overlay
+
+   - display_name: transport-uplink1
+     description: NSX Configured Uplink VLANTransport Zone
+     transport_type: VLAN
+     host_switch_name: nvds-uplink1
+
+   - display_name: transport-uplink2
+     description: NSX Configured Uplink VLAN Transport Zone
+     transport_type: VLAN
+     host_switch_name: nvds-uplink2
+
+uplink_profiles:
+  - display_name: nsx-edge-single-uplink-profile-1
+    teaming:
+      active_list:
+        - uplink_name: "uplink-1"
+          uplink_type: PNIC
+      policy: FAILOVER_ORDER
+    transport_vlan: 0
+    mtu: 9000
+
+  - display_name: nsx-edge-multi-uplink-profile-1
+    teaming:
+      active_list:
+        - uplink_name: uplink-1
+          uplink_type: PNIC
+        - uplink_name: uplink-2
+          uplink_type: PNIC
+      policy: LOADBALANCE_SRCID
+    transport_vlan: 0
+    mtu: 9000
+
+  - display_name: nsx-edge-vtep-profile
+    teaming:
+      active_list:
+        - uplink_name: uplink-1
+          uplink_type: PNIC
+      policy: FAILOVER_ORDER
+    transport_vlan: 0
+    mtu: 9000
+
+  - display_name: nsx-esxi-vtep-profile
+    teaming:
+      active_list:
+        - uplink_name: uplink-1
+          uplink_type: PNIC
+        - uplink_name: uplink-2
+          uplink_type: PNIC
+      policy: LOADBALANCE_SRCID
+    transport_vlan: 0
+    mtu: 9000
+
+#uplink_lags_profiles:
+#    display_name: nsx-lags-profile-1
+#    lags:
+#      name: lag
+#      mode: ACTIVE
+#      load_balance_algorithm: SRCDESTMACIPPORT
+#      number_of_uplinks: 2
+#      uplinks:
+#      - uplink_name: lag-0
+#        uplink_type: PNIC
+#      - uplink_name: lag-1
+#        uplink_type: PNIC
+#      timeout_type: SLOW
+#    teaming:
+#      description: Default TeamingPolicy associated with this UplinkProfile
+#      name:
+#        description: LAGS
+#      policy: LOADBALANCE_SRCID
+#      active_list:
+#      - uplink_name: lag
+#        uplink_type: LAG
+#    transport_vlan: 0
+#    mtu: 9000
