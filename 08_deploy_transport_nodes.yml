@@ -14,7 +14,7 @@
         username: "{{ nsx_node['nsx_username'] }}"
         password: "{{ nsx_node['nsx_password'] }}"
         validate_certs: "{{ nsx_node['validate_certs'] }}"
-        display_name: "{{item.display_name}}"
+        display_name: "{{ item.display_name }}"
         resource_type: "TransportNodeCollection"
         description: "Transport Node Collections 1"
         compute_manager_name: "{{ item.compute_manager_name }}"
@@ -23,3 +23,4 @@
         state: "{{ state }}"
       with_items:
         - "{{ compute_managers2 }}"
+        - "{{ compute_managers3 }}"

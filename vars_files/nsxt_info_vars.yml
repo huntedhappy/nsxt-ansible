@@ -17,7 +17,7 @@ nsx_node:
   portgroup: VM Network
   deployment_size: small
   nsx_username: admin
-  nsx_password: xxxxxx
+  nsx_password: xxxxx
   validate_certs: false
   domain: oblab.local
   netmask: 255.255.255.0

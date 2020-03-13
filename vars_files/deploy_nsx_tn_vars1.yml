@@ -44,8 +44,8 @@ transport_nodes:
         allow_ssh_root_login: true
         enable_ssh: true
         placement_type: VsphereDeploymentConfig
-      node_user_settings: {cli_username: admin, root_password: xxxxxx, cli_password: xxxxxx,
-        audit_username: audit, audit_password: xxxxxx}
+      node_user_settings: {cli_username: admin, root_password: xxxxx, cli_password: xxxxx,
+        audit_username: audit, audit_password: xxxxx}
 - display_name: edge02
   description: NSX Edge Node 02
   host_switches:
@@ -84,8 +84,8 @@ transport_nodes:
         allow_ssh_root_login: true
         enable_ssh: true
         placement_type: VsphereDeploymentConfig
-      node_user_settings: {cli_username: admin, root_password: xxxxxx, cli_password: xxxxxx,
-        audit_username: audit, audit_password: xxxxxx}
+      node_user_settings: {cli_username: admin, root_password: xxxxx, cli_password: xxxxx,
+        audit_username: audit, audit_password: xxxxx}
 edge_clusters:
   display_name: Edge-Cluster-01
   cluster_profile_binding_id: 91bcaa06-47a1-11e4-8316-17ffc770799b
