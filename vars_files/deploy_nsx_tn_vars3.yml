@@ -45,8 +45,8 @@ transport_nodes:
         allow_ssh_root_login: true
         enable_ssh: true
         placement_type: VsphereDeploymentConfig
-      node_user_settings: {cli_username: admin, root_password: Openbase!234, cli_password: Openbase!234,
-        audit_username: audit, audit_password: Openbase!234}
+      node_user_settings: {cli_username: admin, root_password: xxxxxx, cli_password: xxxxxx,
+        audit_username: audit, audit_password: xxxxxx}
 - display_name: edge01
   description: NSX Edge Node 01
   host_switches:
@@ -86,8 +86,8 @@ transport_nodes:
         allow_ssh_root_login: true
         enable_ssh: true
         placement_type: VsphereDeploymentConfig
-      node_user_settings: {cli_username: admin, root_password: Openbase!234, cli_password: Openbase!234,
-        audit_username: audit, audit_password: Openbase!234}
+      node_user_settings: {cli_username: admin, root_password: xxxxxx, cli_password: xxxxxx,
+        audit_username: audit, audit_password: xxxxxx}
 edge_clusters:
   display_name: Edge-Cluster-01
   cluster_profile_binding_id: 91bcaa06-47a1-11e4-8316-17ffc770799b

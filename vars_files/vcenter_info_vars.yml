@@ -12,7 +12,7 @@ compute_managers1:
   transport_node_profile_name: Compute-Profile-1
   credential_type: UsernamePasswordLoginCredential 
   username: administrator@vsphere.local
-  password: Openbase!234
+  password: xxxxxx
 
 compute_managers2:
   origin_type: vCenter
@@ -24,7 +24,7 @@ compute_managers2:
   transport_node_profile_name: Compute-Profile-1
   credential_type: UsernamePasswordLoginCredential
   username: administrator@vsphere.local
-  password: Openbase!234
+  password: xxxxxx
 
 #
 # edge1 deployment config
@@ -45,8 +45,8 @@ edge1_deployment_config:
     allow_ssh_root_login: true
     enable_ssh: true
     placement_type: VsphereDeploymentConfig
-  node_user_settings: {cli_username: admin, root_password: Openbase!234, cli_password: Openbase!234,
-    audit_username: audit, audit_password: Openbase!234}
+  node_user_settings: {cli_username: admin, root_password: xxxxxx, cli_password: xxxxxx,
+    audit_username: audit, audit_password: xxxxxx}
 
 #
 # edge2 deployment config
@@ -67,6 +67,6 @@ edge2_deployment_config:
     allow_ssh_root_login: true
     enable_ssh: true
     placement_type: VsphereDeploymentConfig
-  node_user_settings: {cli_username: admin, root_password: Openbase!234, cli_password: Openbase!234,
-    audit_username: audit, audit_password: Openbase!234}
+  node_user_settings: {cli_username: admin, root_password: xxxxxx, cli_password: xxxxxx,
+    audit_username: audit, audit_password: xxxxxx}
 
