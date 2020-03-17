@@ -1,4 +1,4 @@
- # Copyright 2020 Openbase, Inc.
+### Copyright 2020 Openbase, Inc.
 ---
 - import_playbook: 01_deploy_first_node.yml
 - import_playbook: 02_configure_compute_manager.yml
