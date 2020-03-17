@@ -6,7 +6,7 @@ state: present
 #
 transport_nodes:
 # Edge01
-- display_name: edge01
+- display_name: edge1
   description: NSX Edge Node 01
   host_switches:
   - host_switch_name: nvds-overlay
@@ -29,25 +29,25 @@ transport_nodes:
   node_deployment_info:
     deployment_type: VIRTUAL_MACHINE
     resource_type: EdgeNode
-    display_name: edge01
-    deployment_config:    ## DO NOT EDIT HERE! will be filled from nsxt_vcenter_info.yml
-      form_factor: SMALL
+    display_name: edge101
+    deployment_config:
+      form_factor: LARGE
       vm_deployment_config:
-        vc_name: vcenter2
-        compute_id: domain-c7
-        storage_id: datastore-220
-        host_id: host-162
-        management_port_subnets: [{ip_addresses: [10.253.253.206], prefix_length: 24}]
-        hostname: edge1.oblab.local
+        vc_name: vcenter1
+        compute_id: domain-c9
+        storage_id: datastore-322
+        host_id: host-17
+        management_port_subnets: [{ip_addresses: [10.253.253.101], prefix_length: 24}]
+        hostname: edge101.oblab.local
         management_network_id: network-22
-        data_network_ids: [dvportgroup-26, dvportgroup-25, dvportgroup-25]
+        data_network_ids: [dvportgroup-52, dvportgroup-124, dvportgroup-124]
         default_gateway_addresses: [10.253.253.1]
         allow_ssh_root_login: true
         enable_ssh: true
         placement_type: VsphereDeploymentConfig
       node_user_settings: {cli_username: admin, root_password: xxxxxx, cli_password: xxxxxx,
         audit_username: audit, audit_password: xxxxxx}
-- display_name: edge01
+- display_name: edge2
   description: NSX Edge Node 01
   host_switches:
   - host_switch_name: nvds-overlay
@@ -70,18 +70,18 @@ transport_nodes:
   node_deployment_info:
     deployment_type: VIRTUAL_MACHINE
     resource_type: EdgeNode
-    display_name: edge02
-    deployment_config:     ## DO NOT EDIT HERE! will be filled from nsxt_vcenter_info.yml
-      form_factor: SMALL
+    display_name: edge102
+    deployment_config:
+      form_factor: LARGE
       vm_deployment_config:
-        vc_name: vcenter2
-        compute_id: domain-c7
-        storage_id: datastore-220
-        host_id: host-156
-        management_port_subnets: [{ip_addresses: [10.253.253.207], prefix_length: 24}]
-        hostname: edge2.oblab.local
+        vc_name: vcenter1
+        compute_id: domain-c9
+        storage_id: datastore-322
+        host_id: host-66
+        management_port_subnets: [{ip_addresses: [10.253.253.102], prefix_length: 24}]
+        hostname: edge102.oblab.local
         management_network_id: network-22
-        data_network_ids: [dvportgroup-26, dvportgroup-25, dvportgroup-25]
+        data_network_ids: [dvportgroup-52, dvportgroup-124, dvportgroup-124]
         default_gateway_addresses: [10.253.253.1]
         allow_ssh_root_login: true
         enable_ssh: true
@@ -89,8 +89,8 @@ transport_nodes:
       node_user_settings: {cli_username: admin, root_password: xxxxxx, cli_password: xxxxxx,
         audit_username: audit, audit_password: xxxxxx}
 edge_clusters:
-  display_name: Edge-Cluster-01
+  display_name: Edge-Cluster02
   cluster_profile_binding_id: 91bcaa06-47a1-11e4-8316-17ffc770799b
   members:
-  - {transport_node_name: edge01}
-  - {transport_node_name: edge02}
+  - {transport_node_name: edge102}
+  - {transport_node_name: edge103}

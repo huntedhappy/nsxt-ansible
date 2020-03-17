@@ -7,7 +7,6 @@
 ### you want to one pnic deploy_nsx_tn_vars1 , or two pnic deploy_nsx_tn_vars2, or ***lags pnic deploy_nsx_tn_vars3 not supported edge vm
     - vars_files/deploy_nsx_tn_vars1.yml
     - vars_files/nsxt_info_vars.yml
-    - vars_files/vcenter_info_vars.yml
 
   tasks:
     - name: Deploy Transport Edge-Nodes 

@@ -6,7 +6,7 @@
   vars_files:
     - vars_files/deploy_nsx_tn_vars1.yml
     - vars_files/nsxt_info_vars.yml    
-    - vars_files/nsxt_info_vars.yml
+
   tasks:
     - name: Add edge cluster
       nsxt_edge_clusters:
