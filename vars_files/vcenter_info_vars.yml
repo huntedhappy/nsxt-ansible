@@ -12,7 +12,7 @@ compute_managers1:
   transport_node_profile_name: Compute-Profile-1
   credential_type: UsernamePasswordLoginCredential 
   username: administrator@vsphere.local
-  password: xxxxxx
+  password: xxxxx
 
 compute_managers2:
   origin_type: vCenter
@@ -24,7 +24,13 @@ compute_managers2:
   transport_node_profile_name: Compute-Profile-1
   credential_type: UsernamePasswordLoginCredential
   username: administrator@vsphere.local
-  password: xxxxxx
+  password: xxxxx
+
+compute_managers3:
+  display_name: cluster
+  cluster_name: CLUSTER
+  compute_manager_name: vcenter2
+  transport_node_profile_name: Compute-Profile-1
 
 #
 # edge1 deployment config

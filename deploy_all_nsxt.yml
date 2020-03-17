@@ -2,11 +2,11 @@
 ---
 - import_playbook: 01_deploy_first_node.yml
 - import_playbook: 02_configure_compute_manager.yml
-- import_playbook: 03_deploy_second_third_nsxt_node.yml
+#- import_playbook: 03_deploy_second_third_nsxt_node.yml
 - import_playbook: 04_create_VTEP_Pools.yml
 - import_playbook: 05_create_transport_zone.yml
 - import_playbook: 06_create_uplink_profiles.yml
 - import_playbook: 07_create_transport_node_profiles.yml
 - import_playbook: 08_deploy_transport_nodes.yml
-- import_playbook: 09_deploy_edge_node.yml
-- import_playbook: 10_assign_edge_cluster.yml
+#- import_playbook: 09_deploy_edge_node.yml
+#- import_playbook: 10_assign_edge_cluster.yml

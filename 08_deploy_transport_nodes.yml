@@ -23,3 +23,4 @@
         state: "{{ state }}"
       with_items:
         - "{{ compute_managers2 }}"
+        - "{{ compute_managers3 }}"
